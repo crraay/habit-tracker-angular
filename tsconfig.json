@@ -3,7 +3,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "baseUrl": "./",
+    "paths": {
+      "@webapi/*": ["src/app/web-api/*"]
+    },
+    "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
