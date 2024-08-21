@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
 import { HabitService } from '@webapi/services';
@@ -8,6 +8,7 @@ import { EditHabitItemComponent } from "../../components/edit-habit-item/edit-ha
   selector: 'app-edit-habits',
   standalone: true,
   imports: [
+    NgIf,
     NgForOf,
     EditHabitItemComponent
   ],
@@ -16,6 +17,8 @@ import { EditHabitItemComponent } from "../../components/edit-habit-item/edit-ha
 })
 export class EditHabitsComponent implements OnInit {
   data: HabitResponse[];
+
+  isCreatingNew = false;
 
   constructor(
     private habitService: HabitService
@@ -32,9 +35,23 @@ export class EditHabitsComponent implements OnInit {
       });
   }
 
-  handleSave(habit: HabitResponse): void {
-    // TODO add "create" case
+  enterCreateMode(): void {
+    this.isCreatingNew = true;
+  }
 
+  cancelCreateMode(): void {
+    this.isCreatingNew = false;
+  }
+  
+  handleCreate(habit: HabitResponse): void {
+    this.habitService.createHabit({ body: habit })
+      .subscribe(response => {
+        this.isCreatingNew = false;
+        this.refresh();
+      });
+  }
+
+  handleUpdate(habit: HabitResponse): void {
     this.habitService.updateHabit({ id: habit.id, body: habit })
       .subscribe(response => {
         this.refresh();

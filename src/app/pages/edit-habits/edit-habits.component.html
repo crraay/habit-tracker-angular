@@ -1,8 +1,24 @@
+<ng-container *ngIf="isCreatingNew">
+    <ht-edit-habit-item
+        class="mb-3"
+        [isEditMode]="true"
+        (onEditCancel)="cancelCreateMode()"
+        (onSave)="handleCreate($event)"
+    ></ht-edit-habit-item>
+</ng-container>
+
 <ng-container *ngFor="let habit of data">
     <ht-edit-habit-item
         class="mb-3"
         [data]="habit"
-        (onSave)="handleSave($event)"
+        (onSave)="handleUpdate($event)"
         (onDelete)="handleDelete($event)"
     ></ht-edit-habit-item>
 </ng-container>
+
+<button 
+    class="btn btn-primary btn-lg position-fixed bottom-0 end-0 m-3"
+    (click)="enterCreateMode()"
+>
+    <i class="fa-solid fa-plus"></i>
+</button>

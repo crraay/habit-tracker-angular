@@ -23,33 +23,52 @@ export class EditHabitItemComponent implements OnInit {
   @Output()
   onDelete = new EventEmitter<HabitResponse>();
 
+  @Output()
+  onEditEnter = new EventEmitter<void>();
+
+  @Output()
+  onEditCancel = new EventEmitter<void>();
+
   @Input()
   data: HabitResponse;
 
-  editMode = false;
-  habitForm: FormGroup;
+  @Input()
+  isEditMode = false;
+
+  form: FormGroup;
 
   constructor(
     private fb: FormBuilder
   ) {  }
 
   ngOnInit(): void {
-    this.habitForm = this.fb.group({
-      id: [this.data.id || null],
-      name: [this.data.name || '', Validators.required]
+    this.form = this.fb.group({
+      id: [this.data?.id],
+      // TODO add length validation
+      name: [this.data?.name, Validators.required]
     });
   }
 
   saveChanges() {
-    if (!this.habitForm.valid) {
+    if (!this.form.valid) {
       return;
     }
     
-    this.editMode = false;
-    this.onSave.emit(this.habitForm.value);
+    this.isEditMode = false;
+    this.onSave.emit(this.form.value);
   }
 
   deleteItem() {
     this.onDelete.emit(this.data);
+  }
+
+  enterEdit() {
+    this.isEditMode = true;
+    this.onEditEnter.emit();
+  }
+
+  cancelEdit() {
+    this.isEditMode = false;
+    this.onEditCancel.emit();
   }
 }
