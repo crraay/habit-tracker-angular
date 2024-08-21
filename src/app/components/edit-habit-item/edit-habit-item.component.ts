@@ -18,9 +18,6 @@ import { HabitService } from '@webapi/services';
 })
 export class EditHabitItemComponent implements OnInit {
   @Output()
-  onEdit = new EventEmitter<HabitResponse>();
-
-  @Output()
   onSave = new EventEmitter<HabitResponse>();
 
   @Output()
@@ -47,15 +44,9 @@ export class EditHabitItemComponent implements OnInit {
     if (!this.habitForm.valid) {
       return;
     }
-
-    this.editMode = false;
-    console.log('Save changes:', this.habitForm.value);
     
-    this.onSave.emit(this.habitForm.value);
-  }
-
-  cancelEdit() {
     this.editMode = false;
+    this.onSave.emit(this.habitForm.value);
   }
 
   deleteItem() {

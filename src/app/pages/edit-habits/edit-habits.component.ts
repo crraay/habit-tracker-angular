@@ -22,25 +22,29 @@ export class EditHabitsComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh(): void {
     this.habitService.getHabits()
       .subscribe(response => {
         this.data = response;
       });
   }
 
-  handleEdit(habit: HabitResponse): void {
-    console.log('Edit habit:', habit);
-    // Implement edit logic here
-    
-  }
-
   handleSave(habit: HabitResponse): void {
-    console.log('Save habit:', habit);
-    // Implement save logic here
+    // TODO add "create" case
+
+    this.habitService.updateHabit({ id: habit.id, body: habit })
+      .subscribe(response => {
+        this.refresh();
+      });
   }
 
   handleDelete(habit: HabitResponse): void {
-    console.log('Delete habit:', habit);
-    // Implement delete logic here
+    this.habitService.deleteHabit({ id: habit.id })
+      .subscribe(response => {
+        this.refresh();
+      });
   }
 }
