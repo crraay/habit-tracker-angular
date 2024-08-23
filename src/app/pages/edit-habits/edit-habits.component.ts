@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
 import { HabitService } from '@webapi/services';
 import { EditHabitItemComponent } from "../../components/edit-habit-item/edit-habit-item.component";
+import { trigger, style, transition, animate, sequence } from '@angular/animations';
 
 @Component({
   selector: 'app-edit-habits',
@@ -13,7 +14,21 @@ import { EditHabitItemComponent } from "../../components/edit-habit-item/edit-ha
     EditHabitItemComponent
   ],
   templateUrl: './edit-habits.component.html',
-  styleUrls: ['./edit-habits.component.scss']
+  styleUrls: ['./edit-habits.component.scss'],
+  animations: [
+    trigger('fadeOut', [
+      transition(':leave', [
+        sequence([
+          animate('200ms ease-in-out', style({
+            opacity: 0
+          })),
+          animate('500ms ease-in-out', style({
+            height: 0
+          })),
+        ])
+      ])
+    ])
+  ]
 })
 export class EditHabitsComponent implements OnInit {
   data: HabitResponse[];
@@ -63,5 +78,9 @@ export class EditHabitsComponent implements OnInit {
       .subscribe(response => {
         this.refresh();
       });
+  }
+
+  trackByHabitId(index: number, habit: HabitResponse): number {
+    return habit.id;
   }
 }
