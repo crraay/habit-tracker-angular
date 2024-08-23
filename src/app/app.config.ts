@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { ApiModule } from './web-api/api.module';
 import { environment } from 'environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 if (environment.production) {
   enableProdMode();
@@ -15,6 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    importProvidersFrom(ApiModule.forRoot({ rootUrl: environment.apiUrl }))
+    importProvidersFrom([
+      BrowserAnimationsModule,
+      ApiModule.forRoot({ rootUrl: environment.apiUrl })
+    ])
   ]
 };

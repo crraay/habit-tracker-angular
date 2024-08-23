@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { EditHabitsComponent } from './pages/edit-habits/edit-habits.component';
-import { TrackHabitsComponent } from './pages/track-habits/track-habits.component';
+import { EditHabitsComponent } from './components/edit-habits/edit-habits.component';
+import { TrackHabitsComponent } from './components/edit-habit-item/track-habits/track-habits.component';
 
 export const routes: Routes = [
 	{

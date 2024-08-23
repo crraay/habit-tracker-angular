@@ -2,11 +2,11 @@ import { NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
 import { HabitService } from '@webapi/services';
-import { EditHabitItemComponent } from "../../components/edit-habit-item/edit-habit-item.component";
+import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { trigger, style, transition, animate, sequence } from '@angular/animations';
 
 @Component({
-  selector: 'app-edit-habits',
+  selector: 'ht-edit-habits',
   standalone: true,
   imports: [
     NgIf,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-track-habits',
+  selector: 'ht-track-habits',
   standalone: true,
   imports: [],
   templateUrl: './track-habits.component.html',
