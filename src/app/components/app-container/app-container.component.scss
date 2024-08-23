@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.navbar {
+    flex-shrink: 0;
+}
+
+.content {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+/* Fullscreen layout */
+@media (min-width: 992px) {
+    .content {
+        margin-bottom: 0;
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 991px) {
+    .content {
+        margin-bottom: 56px !important;
+    }
+}

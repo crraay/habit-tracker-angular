@@ -1,28 +1,30 @@
-<ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
-    <!-- additional wrappers needed to correctly animate gap -->
-    <div [@fadeOut]>
-        <div class="pb-3">
-            <ht-edit-habit-item
-                [data]="habit"
-                (onSave)="handleUpdate($event)"
-                (onDelete)="handleDelete($event)"
-            ></ht-edit-habit-item>
+<div>
+    <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
+        <!-- additional wrappers needed to correctly animate gap -->
+        <div [@fadeOut]>
+            <div class="pb-3">
+                <ht-edit-habit-item
+                    [data]="habit"
+                    (onSave)="handleUpdate($event)"
+                    (onDelete)="handleDelete($event)"
+                ></ht-edit-habit-item>
+            </div>
         </div>
-    </div>
-    
-</ng-container>
+        
+    </ng-container>
 
-<ng-container *ngIf="isCreatingNew">
-    <ht-edit-habit-item
-        class="mb-3"
-        [isEditMode]="true"
-        (onEditCancel)="cancelCreateMode()"
-        (onSave)="handleCreate($event)"
-    ></ht-edit-habit-item>
-</ng-container>
+    <ng-container *ngIf="isCreatingNew">
+        <ht-edit-habit-item
+            class="mb-3"
+            [isEditMode]="true"
+            (onEditCancel)="cancelCreateMode()"
+            (onSave)="handleCreate($event)"
+        ></ht-edit-habit-item>
+    </ng-container>
+</div>
 
 <button 
-    class="btn btn-primary btn-lg position-fixed bottom-0 end-0 m-3"
+    class="add-btn btn btn-primary btn-lg position-fixed bottom-0 end-0 m-3"
     (click)="enterCreateMode()"
 >
     <i class="fa-solid fa-plus"></i>

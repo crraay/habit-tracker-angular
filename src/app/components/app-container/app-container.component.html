@@ -1,0 +1,55 @@
+<!-- Full-screen Top ribbon -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 d-none d-lg-flex">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-icons fs-2"></i>
+        <span class="h4 mb-0">Habit Tracker</span>
+    </a>
+    <div class="mx-auto">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/track" routerLinkActive="active">
+                    Track habits
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/edit" routerLinkActive="active">
+                    Edit habits
+                </a>
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-primary">
+        Logout
+    </button>
+</nav>
+
+<!-- Mobile Top Ribbon -->
+<nav class="navbar navbar-light bg-white border-bottom px-4 d-flex d-lg-none">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-icons fs-2"></i>
+        <span class="h4 mb-0">Habit Tracker</span>
+    </a>
+    <button class="btn btn-link nav-link" (click)="logout()">
+        <i class="fas fa-sign-out-alt fs-3"></i>
+    </button>
+</nav>
+
+<div class="content bg-light p-3">
+    <router-outlet></router-outlet>
+</div>
+
+<!-- Mobile Bottom Ribbon -->
+<nav class="navbar navbar-light bg-white border-top fixed-bottom px-4 d-flex d-lg-none">
+    <ul class="navbar-nav d-flex flex-row justify-content-around w-100">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/track" routerLinkActive="active">
+                <i class="fas fa-square-check fs-3"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/edit" routerLinkActive="active">
+                <i class="fas fa-edit fs-3"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
