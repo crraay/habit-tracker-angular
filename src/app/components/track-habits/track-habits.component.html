@@ -1,1 +1,10 @@
-<p>track-habits works!</p>
+<div>
+  <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
+	<div class="pb-3">
+	  <ht-track-habit-item
+		[data]="habit"
+		(statusChange)="handleStatusChange($event)"
+	  ></ht-track-habit-item>
+	</div>
+  </ng-container>
+</div>
