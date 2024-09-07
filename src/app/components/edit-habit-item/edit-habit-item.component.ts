@@ -2,7 +2,6 @@ import { JsonPipe, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HabitResponse } from '@webapi/models';
-import { HabitService } from '@webapi/services';
 
 @Component({
   selector: 'ht-edit-habit-item',

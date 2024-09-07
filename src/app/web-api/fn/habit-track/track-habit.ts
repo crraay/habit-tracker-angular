@@ -6,15 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { HabitTrackRequest } from '../../models/habit-track-request';
 
-export interface DeleteHabit$Params {
-  id: number;
+export interface TrackHabit$Params {
+      body: HabitTrackRequest
 }
 
-export function deleteHabit(http: HttpClient, rootUrl: string, params: DeleteHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, deleteHabit.PATH, 'delete');
+export function trackHabit(http: HttpClient, rootUrl: string, params: TrackHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, trackHabit.PATH, 'post');
   if (params) {
-    rb.query('id', params.id, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -27,4 +28,4 @@ export function deleteHabit(http: HttpClient, rootUrl: string, params: DeleteHab
   );
 }
 
-deleteHabit.PATH = '/api/habit/{id}';
+trackHabit.PATH = '/api/habit-track';

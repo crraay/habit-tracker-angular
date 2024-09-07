@@ -6,26 +6,25 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { HabitResponse } from '../../models/habit-response';
 
-export interface GetHabit$Params {
+export interface DeleteHabit$Params {
   id: number;
 }
 
-export function getHabit(http: HttpClient, rootUrl: string, params: GetHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
-  const rb = new RequestBuilder(rootUrl, getHabit.PATH, 'get');
+export function deleteHabit(http: HttpClient, rootUrl: string, params: DeleteHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, deleteHabit.PATH, 'delete');
   if (params) {
-    rb.query('id', params.id, {});
+    rb.path('id', params.id, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<HabitResponse>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-getHabit.PATH = '/api/habit/{id}';
+deleteHabit.PATH = '/api/habit/{id}';

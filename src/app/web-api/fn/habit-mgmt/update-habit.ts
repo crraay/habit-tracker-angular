@@ -17,7 +17,7 @@ export interface UpdateHabit$Params {
 export function updateHabit(http: HttpClient, rootUrl: string, params: UpdateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
   const rb = new RequestBuilder(rootUrl, updateHabit.PATH, 'put');
   if (params) {
-    rb.query('id', params.id, {});
+    rb.path('id', params.id, {});
     rb.body(params.body, 'application/json');
   }
 

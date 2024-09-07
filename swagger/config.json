@@ -1,4 +1,8 @@
 {
     "input": "./swagger/api-docs.json",
-    "output": "./src/app/web-api"
+    "output": "./src/app/web-api",
+    "includeTags": [
+        "habit-mgmt",
+        "habit-track"
+    ]
   }

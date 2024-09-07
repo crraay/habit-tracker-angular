@@ -1,7 +1,7 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
-import { HabitService } from '@webapi/services';
+import { HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { trigger, style, transition, animate, sequence } from '@angular/animations';
 
@@ -36,7 +36,7 @@ export class EditHabitsComponent implements OnInit {
   isCreatingNew = false;
 
   constructor(
-    private habitService: HabitService
+    private habitMgmtService: HabitMgmtService
   ) { }
   
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class EditHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    this.habitService.getHabits()
+    this.habitMgmtService.getHabits()
       .subscribe(response => {
         this.data = response;
       });
@@ -59,7 +59,7 @@ export class EditHabitsComponent implements OnInit {
   }
   
   handleCreate(habit: HabitResponse): void {
-    this.habitService.createHabit({ body: habit })
+    this.habitMgmtService.createHabit({ body: habit })
       .subscribe(response => {
         this.isCreatingNew = false;
         this.refresh();
@@ -67,14 +67,14 @@ export class EditHabitsComponent implements OnInit {
   }
 
   handleUpdate(habit: HabitResponse): void {
-    this.habitService.updateHabit({ id: habit.id, body: habit })
+    this.habitMgmtService.updateHabit({ id: habit.id, body: habit })
       .subscribe(response => {
         this.refresh();
       });
   }
 
   handleDelete(habit: HabitResponse): void {
-    this.habitService.deleteHabit({ id: habit.id })
+    this.habitMgmtService.deleteHabit({ id: habit.id })
       .subscribe(response => {
         this.refresh();
       });

@@ -9,20 +9,20 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { createHabit } from '../fn/habit/create-habit';
-import { CreateHabit$Params } from '../fn/habit/create-habit';
-import { deleteHabit } from '../fn/habit/delete-habit';
-import { DeleteHabit$Params } from '../fn/habit/delete-habit';
-import { getHabit } from '../fn/habit/get-habit';
-import { GetHabit$Params } from '../fn/habit/get-habit';
-import { getHabits } from '../fn/habit/get-habits';
-import { GetHabits$Params } from '../fn/habit/get-habits';
+import { createHabit } from '../fn/habit-mgmt/create-habit';
+import { CreateHabit$Params } from '../fn/habit-mgmt/create-habit';
+import { deleteHabit } from '../fn/habit-mgmt/delete-habit';
+import { DeleteHabit$Params } from '../fn/habit-mgmt/delete-habit';
+import { getHabit } from '../fn/habit-mgmt/get-habit';
+import { GetHabit$Params } from '../fn/habit-mgmt/get-habit';
+import { getHabits } from '../fn/habit-mgmt/get-habits';
+import { GetHabits$Params } from '../fn/habit-mgmt/get-habits';
 import { HabitResponse } from '../models/habit-response';
-import { updateHabit } from '../fn/habit/update-habit';
-import { UpdateHabit$Params } from '../fn/habit/update-habit';
+import { updateHabit } from '../fn/habit-mgmt/update-habit';
+import { UpdateHabit$Params } from '../fn/habit-mgmt/update-habit';
 
 @Injectable({ providedIn: 'root' })
-export class HabitService extends BaseService {
+export class HabitMgmtService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }

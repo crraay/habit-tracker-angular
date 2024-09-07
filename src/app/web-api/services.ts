@@ -1,1 +1,2 @@
-export { HabitService } from './services/habit.service';
+export { HabitMgmtService } from './services/habit-mgmt.service';
+export { HabitTrackService } from './services/habit-track.service';

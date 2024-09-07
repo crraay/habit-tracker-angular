@@ -4,7 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { HabitService } from './services/habit.service';
+import { HabitMgmtService } from './services/habit-mgmt.service';
+import { HabitTrackService } from './services/habit-track.service';
 
 /**
  * Module that provides all services and configuration.
@@ -14,7 +15,8 @@ import { HabitService } from './services/habit.service';
   exports: [],
   declarations: [],
   providers: [
-    HabitService,
+    HabitMgmtService,
+    HabitTrackService,
     ApiConfiguration
   ],
 })
