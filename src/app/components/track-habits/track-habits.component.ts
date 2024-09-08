@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HabitTrackResponse } from '@webapi/models';
+import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
 import { NgForOf } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ht-track-habits',
@@ -12,6 +13,10 @@ import { NgForOf } from '@angular/common';
   styleUrls: ['./track-habits.component.scss']
 })
 export class TrackHabitsComponent implements OnInit {
+
+  // TODO implement date selection
+  selectedDate: string = '2024-09-07';
+
   data: HabitTrackResponse[];
 
   constructor(
@@ -23,14 +28,27 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    // TODO implement date selection
-    this.habitTrackService.getTrackingList({ date: '2024-09-07' }).subscribe(response => {
+    this.habitTrackService.getTrackingList({ date: this.selectedDate }).subscribe(response => {
       this.data = response;
     });
   }
 
   handleStatusChange(updatedHabit: HabitTrackResponse): void {
-    // TODO implement track/untrack calls
+    const request: HabitTrackRequest = {
+      date: this.selectedDate,
+      habitId: updatedHabit.habitId
+    };
+
+    let observable: Observable<void>;
+    if (updatedHabit.status) {
+      observable = this.habitTrackService.trackHabit({body: request});
+    } else {
+      observable = this.habitTrackService.untrackHabit({ body: request })
+    }
+
+    observable.subscribe(() => {
+      this.refresh();
+    });
   }
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {
