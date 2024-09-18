@@ -1,27 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
-import { NgForOf } from '@angular/common';
+import { DatePipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ht-track-habits',
   standalone: true,
-  imports: [NgForOf, TrackHabitItemComponent],
+  imports: [
+    NgForOf,
+    DatePipe,
+    FormsModule,
+    TrackHabitItemComponent
+  ],
   templateUrl: './track-habits.component.html',
   styleUrls: ['./track-habits.component.scss']
 })
 export class TrackHabitsComponent implements OnInit {
 
-  // TODO implement date selection
-  selectedDate: string = '2024-09-07';
+  @ViewChild('datepicker') datepicker: ElementRef;
+
+  currentDate: string;
+
+  selectedDate: string;
 
   data: HabitTrackResponse[];
 
   constructor(
     private habitTrackService: HabitTrackService
-  ) {}
+  ) {
+    this.currentDate = (new Date()).toISOString().split('T')[0];
+    this.selectedDate = this.currentDate;
+  }
 
   ngOnInit(): void {
     this.refresh();
@@ -49,6 +61,14 @@ export class TrackHabitsComponent implements OnInit {
     observable.subscribe(() => {
       this.refresh();
     });
+  }
+
+  onSelectedDateChange(date: Date): void {
+    this.refresh();
+  }
+
+  openDatepicker(): void {
+    this.datepicker.nativeElement.showPicker();
   }
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {

@@ -1,10 +1,22 @@
 <div>
-  <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
+	<div class="d-flex justify-content-between align-items-center pb-3">
+		{{ selectedDate | date: 'EEEE, MMMM d' }}
+		<input #datepicker
+			class="d-none"
+			type="date"
+			[(ngModel)]="selectedDate"
+			(ngModelChange)="onSelectedDateChange($event)"
+			[max]="currentDate"
+		/>
+		<i (click)="openDatepicker()" class="fs-1 fa-regular fa-calendar"></i>
+	</div>
+
+	<ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
 	<div class="pb-3">
-	  <ht-track-habit-item
+		<ht-track-habit-item
 		[data]="habit"
 		(statusChange)="handleStatusChange($event)"
-	  ></ht-track-habit-item>
+		></ht-track-habit-item>
 	</div>
-  </ng-container>
+	</ng-container>
 </div>
