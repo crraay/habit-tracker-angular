@@ -10,6 +10,11 @@
             "description": "Generated server url"
         }
     ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
     "paths": {
         "/api/habit/{id}": {
             "get": {
@@ -198,6 +203,36 @@
                 }
             }
         },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/habit-track/{date}": {
             "get": {
                 "tags": [
@@ -268,6 +303,29 @@
                     }
                 }
             },
+            "LoginRequest": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "tokenExpiresIn": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
             "HabitTrackResponse": {
                 "type": "object",
                 "properties": {
@@ -282,6 +340,14 @@
                         "type": "boolean"
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }

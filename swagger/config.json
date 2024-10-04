@@ -2,6 +2,7 @@
     "input": "./swagger/api-docs.json",
     "output": "./src/app/web-api",
     "includeTags": [
+        "auth",
         "habit-mgmt",
         "habit-track"
     ]

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthStore } from 'src/app/store/auth.store';
 
 @Component({
   selector: 'ht-app-container',
@@ -12,9 +13,13 @@ import { RouterModule } from '@angular/router';
 })
 export class AppContainerComponent {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authStore: AuthStore
+  ) { }
 
   logout() {
-    // TODO: Implement logout
+    this.authStore.clear();
+    this.router.navigate(['login']);
   }
 }

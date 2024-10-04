@@ -1,7 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@webapi/services';
+import { AuthStore } from 'src/app/store/auth.store';
 
 @Component({
   selector: 'ht-login',
@@ -20,7 +22,9 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private router: Router,
+    private authService: AuthService,
+    private authStore: AuthStore
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -40,7 +44,8 @@ export class LoginComponent {
         password: this.form.value.password
       }
     }).subscribe(response => {
-      console.log(response)
+      this.authStore.setData(response);
+      this.router.navigate(['']);
     });
   }
 }
