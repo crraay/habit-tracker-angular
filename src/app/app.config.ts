@@ -6,7 +6,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApiModule } from './web-api/api.module';
 import { environment } from 'environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { tokenInterceptor } from './interceptors/token.interceptor';
+import { refreshTokenInterceptor, tokenInterceptor } from './interceptors';
 
 if (environment.production) {
   enableProdMode();
@@ -18,7 +18,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withInterceptors([
-        tokenInterceptor
+        tokenInterceptor,
+        refreshTokenInterceptor
       ])
     ),
     importProvidersFrom([
