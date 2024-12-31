@@ -5,11 +5,13 @@ import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.co
 import { DatePipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { DatePickerComponent, DpDatePickerModule } from 'ng2-date-picker';
 
 @Component({
   selector: 'ht-track-habits',
   standalone: true,
   imports: [
+    DpDatePickerModule,
     NgForOf,
     DatePipe,
     FormsModule,
@@ -20,19 +22,35 @@ import { FormsModule } from '@angular/forms';
 })
 export class TrackHabitsComponent implements OnInit {
 
-  @ViewChild('datepicker') datepicker: ElementRef;
+  // @ViewChild('datepicker') datepicker: ElementRef;
+
+  @ViewChild('datepicker') datePicker: DatePickerComponent;  
 
   currentDate: string;
 
+  // currentDate2: Date;
+
   selectedDate: string;
 
+  // selectedDate2: Date;
+
   data: HabitTrackResponse[];
+
+  config = {
+    format: 'YYYY-MM-DD',
+    firstDayOfWeek: 'mo',
+    monthFormat: 'MMMM YYYY',
+    // TODO add min/max date
+  };
 
   constructor(
     private habitTrackService: HabitTrackService
   ) {
+    // rework??
     this.currentDate = (new Date()).toISOString().split('T')[0];
     this.selectedDate = this.currentDate;
+    console.log('currentDate', this.currentDate);
+    
   }
 
   ngOnInit(): void {
@@ -40,9 +58,10 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    this.habitTrackService.getTrackingList({ date: this.selectedDate }).subscribe(response => {
-      this.data = response;
-    });
+    this.habitTrackService.getTrackingList({ date: this.selectedDate })
+      .subscribe(response => {
+        this.data = response;
+      });
   }
 
   handleStatusChange(updatedHabit: HabitTrackResponse): void {
@@ -64,11 +83,17 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   onSelectedDateChange(date: Date): void {
+    console.log('onSelectedDateChange', date);
+    
     this.refresh();
   }
 
-  openDatepicker(): void {
-    this.datepicker.nativeElement.showPicker();
+  // openDatepicker(): void {
+  //   this.datepicker.nativeElement.showPicker();
+  // }
+
+  openDatepicker2(): void {
+    this.datePicker.api.open();
   }
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {
