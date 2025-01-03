@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
 import { DatePipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { DatepickerComponent } from "../datepicker/datepicker.component";
 
 @Component({
   selector: 'ht-track-habits',
@@ -13,25 +14,26 @@ import { FormsModule } from '@angular/forms';
     NgForOf,
     DatePipe,
     FormsModule,
-    TrackHabitItemComponent
-  ],
+    TrackHabitItemComponent,
+    DatepickerComponent
+],
   templateUrl: './track-habits.component.html',
   styleUrls: ['./track-habits.component.scss']
 })
 export class TrackHabitsComponent implements OnInit {
 
-  @ViewChild('datepicker') datepicker: ElementRef;
+  @ViewChild('datepicker') datepicker: DatepickerComponent;
 
-  currentDate: string;
+  currentDate: Date;
 
-  selectedDate: string;
+  selectedDate: Date;
 
   data: HabitTrackResponse[];
 
   constructor(
     private habitTrackService: HabitTrackService
   ) {
-    this.currentDate = (new Date()).toISOString().split('T')[0];
+    this.currentDate = new Date();
     this.selectedDate = this.currentDate;
   }
 
@@ -40,14 +42,26 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    this.habitTrackService.getTrackingList({ date: this.selectedDate }).subscribe(response => {
+    const formattedDate = this.formatDate(this.selectedDate);
+
+    this.habitTrackService.getTrackingList({ date: formattedDate }).subscribe(response => {
       this.data = response;
     });
   }
 
+  // TODO replace with date-fns library
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   handleStatusChange(updatedHabit: HabitTrackResponse): void {
+    const formattedDate = this.formatDate(this.selectedDate);
+
     const request: HabitTrackRequest = {
-      date: this.selectedDate,
+      date: formattedDate,
       habitId: updatedHabit.habitId
     };
 
@@ -63,12 +77,8 @@ export class TrackHabitsComponent implements OnInit {
     });
   }
 
-  onSelectedDateChange(date: Date): void {
-    this.refresh();
-  }
-
   openDatepicker(): void {
-    this.datepicker.nativeElement.showPicker();
+    this.datepicker.show();
   }
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {
