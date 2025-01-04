@@ -1,13 +1,15 @@
 <div>
 	<div class="d-flex justify-content-between align-items-center pb-3">
 		{{ selectedDate | date: 'EEEE, MMMM d' }}
-		<input #datepicker
-			class="d-none"
-			type="date"
-			[(ngModel)]="selectedDate"
-			(ngModelChange)="onSelectedDateChange($event)"
-			[max]="currentDate"
-		/>
+
+		<ht-datepicker
+			#datepicker
+			[(value)]="selectedDate"
+			(valueChange)="refresh()"
+			[maxDate]="currentDate"
+			[isInputHidden]="true"
+		></ht-datepicker>
+
 		<i (click)="openDatepicker()" class="fs-1 fa-regular fa-calendar"></i>
 	</div>
 
