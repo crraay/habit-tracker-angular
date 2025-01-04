@@ -2,7 +2,7 @@
     <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
         <!-- additional wrappers needed to correctly animate gap -->
         <div [@fadeOut]>
-            <div class="pb-3">
+            <div class="pb-2 pb-lg-3">
                 <ht-edit-habit-item
                     [data]="habit"
                     (onSave)="handleUpdate($event)"
@@ -15,7 +15,7 @@
 
     <ng-container *ngIf="isCreatingNew">
         <ht-edit-habit-item
-            class="mb-3"
+            class="mb-2 mb-lg-3"
             [isEditMode]="true"
             (onEditCancel)="cancelCreateMode()"
             (onSave)="handleCreate($event)"

@@ -14,7 +14,7 @@
 	</div>
 
 	<ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
-	<div class="pb-3">
+	<div class="pb-2 pb-lg-3">
 		<ht-track-habit-item
 		[data]="habit"
 		(statusChange)="handleStatusChange($event)"

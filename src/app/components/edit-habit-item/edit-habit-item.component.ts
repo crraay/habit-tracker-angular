@@ -7,7 +7,6 @@ import { HabitResponse } from '@webapi/models';
   selector: 'ht-edit-habit-item',
   standalone: true,
   imports: [
-    JsonPipe,
     NgIf,
     ReactiveFormsModule
   ],
