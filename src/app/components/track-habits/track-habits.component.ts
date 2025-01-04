@@ -1,10 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
 import { DatePipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { DatepickerComponent } from "../datepicker/datepicker.component";
+import { format } from 'date-fns';
 
 @Component({
   selector: 'ht-track-habits',
@@ -13,25 +15,26 @@ import { FormsModule } from '@angular/forms';
     NgForOf,
     DatePipe,
     FormsModule,
-    TrackHabitItemComponent
-  ],
+    TrackHabitItemComponent,
+    DatepickerComponent
+],
   templateUrl: './track-habits.component.html',
   styleUrls: ['./track-habits.component.scss']
 })
 export class TrackHabitsComponent implements OnInit {
 
-  @ViewChild('datepicker') datepicker: ElementRef;
+  @ViewChild('datepicker') datepicker: DatepickerComponent;
 
-  currentDate: string;
+  currentDate: Date;
 
-  selectedDate: string;
+  selectedDate: Date;
 
   data: HabitTrackResponse[];
 
   constructor(
     private habitTrackService: HabitTrackService
   ) {
-    this.currentDate = (new Date()).toISOString().split('T')[0];
+    this.currentDate = new Date();
     this.selectedDate = this.currentDate;
   }
 
@@ -40,14 +43,18 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    this.habitTrackService.getTrackingList({ date: this.selectedDate }).subscribe(response => {
+    const formattedDate = format(this.selectedDate, 'yyyy-MM-dd');
+
+    this.habitTrackService.getTrackingList({ date: formattedDate }).subscribe(response => {
       this.data = response;
     });
   }
 
   handleStatusChange(updatedHabit: HabitTrackResponse): void {
+    const formattedDate = format(this.selectedDate, 'yyyy-MM-dd');
+
     const request: HabitTrackRequest = {
-      date: this.selectedDate,
+      date: formattedDate,
       habitId: updatedHabit.habitId
     };
 
@@ -63,12 +70,8 @@ export class TrackHabitsComponent implements OnInit {
     });
   }
 
-  onSelectedDateChange(date: Date): void {
-    this.refresh();
-  }
-
   openDatepicker(): void {
-    this.datepicker.nativeElement.showPicker();
+    this.datepicker.show();
   }
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {
