@@ -5,6 +5,7 @@
 		<ht-datepicker
 			#datepicker
 			[(value)]="selectedDate"
+			(valueChange)="refresh()"
 			[maxDate]="currentDate"
 			[isInputHidden]="true"
 		></ht-datepicker>

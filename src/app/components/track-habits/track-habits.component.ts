@@ -6,6 +6,7 @@ import { DatePipe, NgForOf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { DatepickerComponent } from "../datepicker/datepicker.component";
+import { format } from 'date-fns';
 
 @Component({
   selector: 'ht-track-habits',
@@ -42,23 +43,15 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    const formattedDate = this.formatDate(this.selectedDate);
+    const formattedDate = format(this.selectedDate, 'yyyy-MM-dd');
 
     this.habitTrackService.getTrackingList({ date: formattedDate }).subscribe(response => {
       this.data = response;
     });
   }
 
-  // TODO replace with date-fns library
-  formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
   handleStatusChange(updatedHabit: HabitTrackResponse): void {
-    const formattedDate = this.formatDate(this.selectedDate);
+    const formattedDate = format(this.selectedDate, 'yyyy-MM-dd');
 
     const request: HabitTrackRequest = {
       date: formattedDate,
