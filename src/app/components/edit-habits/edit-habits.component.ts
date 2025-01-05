@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
 import { HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
-import { trigger, style, transition, animate, sequence } from '@angular/animations';
+import { trigger, transition, sequence, useAnimation } from '@angular/animations';
+import { fadeOutAnimation, heightOutAnimation } from 'src/app/animations';
 
 @Component({
   selector: 'ht-edit-habits',
@@ -16,15 +17,11 @@ import { trigger, style, transition, animate, sequence } from '@angular/animatio
   templateUrl: './edit-habits.component.html',
   styleUrls: ['./edit-habits.component.scss'],
   animations: [
-    trigger('fadeOut', [
+    trigger('fadeHeightOut', [
       transition(':leave', [
         sequence([
-          animate('200ms ease-in-out', style({
-            opacity: 0
-          })),
-          animate('500ms ease-in-out', style({
-            height: 0
-          })),
+          useAnimation(fadeOutAnimation),
+          useAnimation(heightOutAnimation)
         ])
       ])
     ])

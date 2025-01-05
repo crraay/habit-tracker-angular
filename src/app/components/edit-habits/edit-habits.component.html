@@ -1,7 +1,7 @@
 <div>
     <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
-        <!-- additional wrappers needed to correctly animate gap -->
-        <div [@fadeOut]>
+        <!-- additional wrapper is needed to correctly animate gap -->
+        <div [@fadeHeightOut]>
             <div class="pb-2 pb-lg-3">
                 <ht-edit-habit-item
                     [data]="habit"
