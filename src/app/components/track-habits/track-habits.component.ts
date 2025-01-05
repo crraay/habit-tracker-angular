@@ -2,22 +2,25 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
-import { DatePipe, NgForOf } from '@angular/common';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { DatepickerComponent } from "../datepicker/datepicker.component";
 import { format } from 'date-fns';
+import { SeparatorComponent } from "../separator/separator.component";
 
 @Component({
   selector: 'ht-track-habits',
   standalone: true,
   imports: [
+    NgIf,
     NgForOf,
     DatePipe,
     FormsModule,
     TrackHabitItemComponent,
-    DatepickerComponent
-],
+    DatepickerComponent,
+    SeparatorComponent
+  ],
   templateUrl: './track-habits.component.html',
   styleUrls: ['./track-habits.component.scss']
 })
@@ -76,5 +79,10 @@ export class TrackHabitsComponent implements OnInit {
 
   trackByHabitId(index: number, habit: HabitTrackResponse): number {
     return habit.habitId;
+  }
+
+  // TODO rework into a pipe
+  applyFilterByStatus(status): HabitTrackResponse[] {
+    return this.data?.filter(habit => habit.status === status);
   }
 }
