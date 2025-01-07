@@ -8,8 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { DatepickerComponent } from "../datepicker/datepicker.component";
 import { format } from 'date-fns';
 import { SeparatorComponent } from "../separator/separator.component";
-import { sequence, style, transition, trigger, useAnimation } from '@angular/animations';
-import { fadeInAnimation, fadeOutAnimation, heightInAnimation, heightOutAnimation } from 'src/app/animations';
+import { fadeHeightInTrigger, fadeHeightOutTrigger } from 'src/app/animations/triggers';
 
 @Component({
   selector: 'ht-track-habits',
@@ -26,23 +25,8 @@ import { fadeInAnimation, fadeOutAnimation, heightInAnimation, heightOutAnimatio
   templateUrl: './track-habits.component.html',
   styleUrls: ['./track-habits.component.scss'],
   animations: [
-    trigger('fadeHeightIn', [
-      transition(':enter', [
-        sequence([
-          style({ height: 0, opacity: 0 }),
-          useAnimation(heightInAnimation),
-          useAnimation(fadeInAnimation)
-        ])
-      ])
-    ]),
-    trigger('fadeHeightOut', [
-      transition(':leave', [
-        sequence([
-          useAnimation(fadeOutAnimation),
-          useAnimation(heightOutAnimation)
-        ])
-      ])
-    ])
+    fadeHeightInTrigger,
+    fadeHeightOutTrigger
   ]
 })
 export class TrackHabitsComponent implements OnInit {
