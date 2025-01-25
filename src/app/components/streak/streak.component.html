@@ -1,0 +1,24 @@
+<span class="mx-3">
+    <!-- disabled -->
+    <ng-container *ngIf="!status">
+        <i class="fs-1 fa-solid fa-fire text-muted"></i>
+        <strong class="fs-1 px-1">{{ value }}</strong>
+    </ng-container>
+
+    <!-- enabled -->
+    <ng-container *ngIf="status">
+        <span class="position-relative">
+            <i 
+                style="color:red; z-index:100;" 
+                class="position-relative fs-1 fa-solid fa-fire red"
+            ></i>
+
+            <i 
+                style="color:yellow; top:-6px; left: 0; z-index:0;" 
+                class="position-absolute fs-4 fa-solid fa-circle red"
+            ></i>
+        </span>
+        <strong style="color:red" class="fs-1 px-1">{{ value }}</strong>
+    </ng-container>
+</span>
+
