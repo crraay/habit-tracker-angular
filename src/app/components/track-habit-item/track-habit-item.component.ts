@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HabitTrackResponse } from '@webapi/models';
 import { StreakComponent } from "../streak/streak.component";
 
@@ -31,9 +31,4 @@ export class TrackHabitItemComponent implements OnInit {
     this.statusChange.emit({ ...this.data, status });
   }
 
-  // TODO replace with backend implementation
-  // returns random number from 1 to 15
-  getStreak(): number {
-    return Math.floor(Math.random() * 15) + 1;
-  }
 }
