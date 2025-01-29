@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    align-items: center;
+}
+
+.fire {
+    z-index: 100;
+
+    position: relative;
+}
+
+.fire-bg {
+    z-index: 0;
+
+    position: absolute;
+    top: 4px;
+    left: 0px;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-yellow {
+    color: yellow;
+}
