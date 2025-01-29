@@ -61,7 +61,7 @@
                 }
               ]
             },
-            "staging": {
+            "dev": {
               "budgets": [
                 {
                   "type": "initial",
@@ -78,17 +78,17 @@
               "fileReplacements": [
                 {
                   "replace": "./environments/environment.ts",
-                  "with":  "./environments/environment.staging.ts"
+                  "with":  "./environments/environment.dev.ts"
                 }
               ]
             },
-            "development": {
+            "local": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "staging"
+          "defaultConfiguration": "dev"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -96,14 +96,14 @@
             "production": {
               "buildTarget": "habit-tracker-ui:build:production"
             },
-            "staging": {
-              "buildTarget": "habit-tracker-ui:build:staging"
+            "dev": {
+              "buildTarget": "habit-tracker-ui:build:dev"
             },
-            "development": {
-              "buildTarget": "habit-tracker-ui:build:development"
+            "local": {
+              "buildTarget": "habit-tracker-ui:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
