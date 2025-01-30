@@ -13,8 +13,13 @@
     z-index: 0;
 
     position: absolute;
-    top: 4px;
-    left: 0px;
+    bottom: 3px;
+    
+    // center via margin
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
 }
 
 .color-red {
