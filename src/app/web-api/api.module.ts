@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { HabitMgmtService } from './services/habit-mgmt.service';
 import { HabitTrackService } from './services/habit-track.service';
 import { AuthService } from './services/auth.service';
+import { HabitStatisticsService } from './services/habit-statistics.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,6 +20,7 @@ import { AuthService } from './services/auth.service';
     HabitMgmtService,
     HabitTrackService,
     AuthService,
+    HabitStatisticsService,
     ApiConfiguration
   ],
 })

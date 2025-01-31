@@ -4,6 +4,7 @@
     "includeTags": [
         "auth",
         "habit-mgmt",
-        "habit-track"
+        "habit-track",
+        "habit-statistics"
     ]
   }
