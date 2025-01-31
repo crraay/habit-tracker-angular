@@ -4,6 +4,7 @@ import { EditHabitsComponent } from './components/edit-habits/edit-habits.compon
 import { TrackHabitsComponent } from './components/track-habits/track-habits.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard, noAuthGuard } from './guards';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 export const routes: Routes = [
   {
@@ -16,19 +17,23 @@ export const routes: Routes = [
     component: AppContainerComponent,
     canActivateChild: [authGuard],
     children: [
-    {
-      path: '',
-      redirectTo: 'track',
-      pathMatch: 'full'
-    },
-    {
-      path: 'track',
-      component: TrackHabitsComponent
-    },
-    {
-      path: 'edit',
-      component: EditHabitsComponent
-    }
+      {
+        path: '',
+        redirectTo: 'track',
+        pathMatch: 'full'
+      },
+      {
+        path: 'track',
+        component: TrackHabitsComponent
+      },
+      {
+        path: 'edit',
+        component: EditHabitsComponent
+      },
+      {
+        path: 'statistics',
+        component: StatisticsComponent
+      }
     ]
   },
   {
