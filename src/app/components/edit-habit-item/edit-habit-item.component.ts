@@ -1,5 +1,5 @@
-import { JsonPipe, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HabitResponse } from '@webapi/models';
 

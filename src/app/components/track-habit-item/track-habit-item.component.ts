@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HabitTrackResponse } from '@webapi/models';
 import { StreakComponent } from "../streak/streak.component";
@@ -14,18 +14,13 @@ import { StreakComponent } from "../streak/streak.component";
   styleUrls: ['./track-habit-item.component.scss'],
   host: { class: 'card' }
 })
-export class TrackHabitItemComponent implements OnInit {
+export class TrackHabitItemComponent {
 
   @Input()
   data: HabitTrackResponse;
 
   @Output()
   statusChange = new EventEmitter<HabitTrackResponse>();
-
-  constructor() {}
-
-  ngOnInit(): void {
-  }
 
   onValueChange(status): void {
     this.statusChange.emit({ ...this.data, status });
