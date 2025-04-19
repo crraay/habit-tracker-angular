@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import AirDatepicker from 'air-datepicker';
 import localeEn from 'air-datepicker/locale/en';
 
@@ -10,6 +10,9 @@ import localeEn from 'air-datepicker/locale/en';
   styleUrl: './datepicker.component.scss'
 })
 export class DatepickerComponent implements OnInit {
+
+  @ViewChild('datepicker', { static: true })
+  inputElement: ElementRef;
 
   @Input()
   value: Date;
@@ -24,12 +27,15 @@ export class DatepickerComponent implements OnInit {
   minDate: Date;
 
   @Input()
+  isMobile: boolean;
+
+  @Input()
   isInputHidden: boolean;
 
   private _airDatepicker: any;
 
   ngOnInit() {
-    this._airDatepicker = new AirDatepicker('#datepicker',
+    this._airDatepicker = new AirDatepicker(this.inputElement.nativeElement,
       {
         locale: localeEn,
         firstDay: 1,
@@ -37,7 +43,7 @@ export class DatepickerComponent implements OnInit {
         selectedDates: [this.value],
         autoClose: true,
         // turn on mobile view if input is hidden
-        isMobile: this.isInputHidden,
+        isMobile: this.isMobile,
         toggleSelected: false,
         maxDate: this.maxDate,
         minDate: this.minDate,
