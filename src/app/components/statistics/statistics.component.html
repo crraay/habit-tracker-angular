@@ -1,1 +1,25 @@
-<p>statistics works!</p>
+<div class="d-flex justify-content-center gap-1 pb-2 pb-lg-3">
+  <ht-datepicker
+    [style.width.px]="120"
+    [(value)]="startDate"
+    (valueChange)="refresh()"
+    [maxDate]="endDate"
+    [isMobile]="true"
+  ></ht-datepicker>
+
+  <span> - </span>
+
+  <ht-datepicker
+    [style.width.px]="120"
+    [(value)]="endDate"
+    (valueChange)="refresh()"
+    [maxDate]="currentDate"
+    [isMobile]="true"
+  ></ht-datepicker>
+</div>
+
+<ng-container *ngFor="let habit of data">
+  <div class="pb-2 pb-lg-3">
+    <ht-stat-habit-item [data]="habit"/>
+  </div>
+</ng-container>

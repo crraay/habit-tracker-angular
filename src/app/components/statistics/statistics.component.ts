@@ -1,12 +1,51 @@
-import { Component } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { HabitStat } from '@webapi/models';
+import { HabitStatisticsService } from '@webapi/services';
+import { format, startOfMonth } from 'date-fns';
+import { StatHabitItemComponent } from '../stat-habit-item/stat-habit-item.component';
+import { DatepickerComponent } from '../datepicker/datepicker.component';
 
 @Component({
   selector: 'ht-statistics',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf,
+    DatepickerComponent,
+    StatHabitItemComponent
+  ],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss'
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit {
 
+  currentDate = new Date();
+
+  startDate: Date;
+
+  endDate: Date;
+
+  data: HabitStat[];
+
+  constructor(
+    private habitStatisticsService: HabitStatisticsService
+  ) {
+    this.startDate = startOfMonth(this.currentDate);
+    this.endDate = this.currentDate;
+  }
+
+  ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh() {
+    const formattedStartDate = format(this.startDate, 'yyyy-MM-dd');
+    const formattedEndDate = format(this.endDate, 'yyyy-MM-dd');
+
+    this.habitStatisticsService
+      .getAggregatedData({ startDate: formattedStartDate, endDate: formattedEndDate })
+      .subscribe(response => {
+        this.data = response;
+      });
+  }
 }
