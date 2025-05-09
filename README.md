@@ -16,7 +16,7 @@ HabitTrackerUi is the frontend application for the Habit Tracker project. It pro
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/crraay/habit-tracker-angular
+   git clone https://github.com/crraay/habit-tracker-angular.git
    cd habit-tracker-angular
    ```
 
