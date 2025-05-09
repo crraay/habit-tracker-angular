@@ -1,6 +1,6 @@
-<div>
-	<div class="d-flex justify-content-between align-items-center pb-2">
-		{{ selectedDate | date: 'EEEE, MMMM d' }}
+<div class="container-fluid px-3 px-md-4 py-3 py-md-4">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h4 class="m-0">{{ selectedDate | date: 'EEEE, MMMM d' }}</h4>
 
 		<ht-datepicker
 			#datepicker
@@ -11,21 +11,23 @@
 			[isMobile]="true"
 		></ht-datepicker>
 
-		<i (click)="openDatepicker()" class="fs-1 fa-regular fa-calendar"></i>
+		<i (click)="openDatepicker()" class="fs-2 fa-regular fa-calendar"></i>
 	</div>
 
 	<ht-separator
 		text="TODO"
+		class="mb-4"
 	></ht-separator>
 
 	<div
 		[@fadeHeightIn]
 		*ngIf="!applyFilterByStatus(false)?.length"
-		class="d-flex justify-content-center pb-1">
+		class="d-flex justify-content-center py-4 text-muted">
 		Nothing left to do
 		<br>
 		Good job! 🎉🎉🎉
 	</div>
+
 	<ng-container *ngFor="let habit of applyFilterByStatus(false); trackBy: trackByHabitId">
 		<!-- additional wrapper is needed to correctly animate gap -->
 		<div [@fadeHeightIn] [@fadeHeightOut]>
@@ -43,7 +45,9 @@
 		[@fadeHeightIn]
 		[@fadeHeightOut]
 		text="DONE"
+		class="my-4"
 	></ht-separator>
+
 	<ng-container *ngFor="let habit of applyFilterByStatus(true); trackBy: trackByHabitId">
 		<!-- additional wrapper is needed to correctly animate gap -->
 		<div [@fadeHeightIn] [@fadeHeightOut]>
