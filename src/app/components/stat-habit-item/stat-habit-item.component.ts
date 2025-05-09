@@ -6,8 +6,7 @@ import { HabitStat } from '@webapi/models';
   standalone: true,
   imports: [],
   templateUrl: './stat-habit-item.component.html',
-  styleUrl: './stat-habit-item.component.scss',
-  host: { class: 'card' }
+  styleUrl: './stat-habit-item.component.scss'
 })
 export class StatHabitItemComponent {
 

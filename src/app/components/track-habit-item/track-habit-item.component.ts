@@ -11,8 +11,7 @@ import { StreakComponent } from "../streak/streak.component";
     StreakComponent
   ],
   templateUrl: './track-habit-item.component.html',
-  styleUrls: ['./track-habit-item.component.scss'],
-  host: { class: 'card' }
+  styleUrls: ['./track-habit-item.component.scss']
 })
 export class TrackHabitItemComponent {
 

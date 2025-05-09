@@ -11,8 +11,7 @@ import { HabitResponse } from '@webapi/models';
     ReactiveFormsModule
   ],
   templateUrl: './edit-habit-item.component.html',
-  styleUrls: ['./edit-habit-item.component.scss'],
-  host: { class: 'card' }
+  styleUrls: ['./edit-habit-item.component.scss']
 })
 export class EditHabitItemComponent implements OnInit {
   @Output()
@@ -51,7 +50,7 @@ export class EditHabitItemComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    
+
     this.isEditMode = false;
     this.onSave.emit(this.form.value);
   }
