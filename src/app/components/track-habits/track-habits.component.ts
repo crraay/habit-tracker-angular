@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { HabitTrackRequest, HabitTrackResponse } from '@webapi/models';
 import { HabitTrackService } from '@webapi/services';
 import { TrackHabitItemComponent } from '../track-habit-item/track-habit-item.component';
@@ -27,7 +27,8 @@ import { fadeHeightInTrigger, fadeHeightOutTrigger } from 'src/app/animations/tr
   animations: [
     fadeHeightInTrigger,
     fadeHeightOutTrigger
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrackHabitsComponent implements OnInit {
 
@@ -40,7 +41,8 @@ export class TrackHabitsComponent implements OnInit {
   data: HabitTrackResponse[];
 
   constructor(
-    private habitTrackService: HabitTrackService
+    private habitTrackService: HabitTrackService,
+    private cdr: ChangeDetectorRef
   ) {
     this.currentDate = new Date();
     this.selectedDate = this.currentDate;
@@ -51,10 +53,11 @@ export class TrackHabitsComponent implements OnInit {
   }
 
   refresh(): void {
-    const formattedDate = format(this.selectedDate, 'yyyy-MM-dd');
-
-    this.habitTrackService.getTrackingList({ date: formattedDate }).subscribe(response => {
+    this.habitTrackService.getTrackingList({
+      date: format(this.selectedDate, 'yyyy-MM-dd')
+    }).subscribe(response => {
       this.data = response;
+      this.cdr.markForCheck();
     });
   }
 

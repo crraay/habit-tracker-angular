@@ -1,5 +1,5 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HabitResponse } from '@webapi/models';
 import { HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
@@ -18,7 +18,8 @@ import { fadeHeightOutTrigger, fadeInTrigger, fadeOutTrigger } from 'src/app/ani
   animations: [
     fadeInTrigger,
     fadeHeightOutTrigger,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditHabitsComponent implements OnInit {
   data: HabitResponse[];
@@ -26,9 +27,10 @@ export class EditHabitsComponent implements OnInit {
   isCreatingNew = false;
 
   constructor(
-    private habitMgmtService: HabitMgmtService
+    private habitMgmtService: HabitMgmtService,
+    private cdr: ChangeDetectorRef
   ) { }
-  
+
   ngOnInit(): void {
     this.refresh();
   }
@@ -37,17 +39,20 @@ export class EditHabitsComponent implements OnInit {
     this.habitMgmtService.getHabits()
       .subscribe(response => {
         this.data = response;
+        this.cdr.markForCheck();
       });
   }
 
   enterCreateMode(): void {
     this.isCreatingNew = true;
+    this.cdr.markForCheck();
   }
 
   cancelCreateMode(): void {
     this.isCreatingNew = false;
+    this.cdr.markForCheck();
   }
-  
+
   handleCreate(habit: HabitResponse): void {
     this.habitMgmtService.createHabit({ body: habit })
       .subscribe(response => {

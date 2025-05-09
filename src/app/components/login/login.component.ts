@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@webapi/services';
@@ -14,7 +14,8 @@ import { AuthStore } from 'src/app/store/auth.store';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  host: { class: 'd-flex flex-column justify-content-center align-items-center bg-light' }
+  host: { class: 'd-flex flex-column justify-content-center align-items-center bg-light' },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
 

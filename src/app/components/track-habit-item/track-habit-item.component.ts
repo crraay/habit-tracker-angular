@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HabitTrackResponse } from '@webapi/models';
 import { StreakComponent } from "../streak/streak.component";
@@ -11,7 +11,8 @@ import { StreakComponent } from "../streak/streak.component";
     StreakComponent
   ],
   templateUrl: './track-habit-item.component.html',
-  styleUrls: ['./track-habit-item.component.scss']
+  styleUrls: ['./track-habit-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrackHabitItemComponent {
 

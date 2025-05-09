@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ht-streak',
@@ -8,7 +8,8 @@ import { Component, Input } from '@angular/core';
     NgIf,
   ],
   templateUrl: './streak.component.html',
-  styleUrl: './streak.component.scss'
+  styleUrl: './streak.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StreakComponent {
 
@@ -17,5 +18,5 @@ export class StreakComponent {
 
   @Input()
   status: boolean;
-  
+
 }

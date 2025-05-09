@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import AirDatepicker from 'air-datepicker';
 import localeEn from 'air-datepicker/locale/en';
 
@@ -7,9 +7,10 @@ import localeEn from 'air-datepicker/locale/en';
   standalone: true,
   imports: [],
   templateUrl: './datepicker.component.html',
-  styleUrl: './datepicker.component.scss'
+  styleUrl: './datepicker.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatepickerComponent implements OnInit {
+export class DatepickerComponent implements AfterViewInit {
 
   @ViewChild('datepicker', { static: true })
   inputElement: ElementRef;
@@ -34,7 +35,9 @@ export class DatepickerComponent implements OnInit {
 
   private _airDatepicker: any;
 
-  ngOnInit() {
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit() {
     this._airDatepicker = new AirDatepicker(this.inputElement.nativeElement,
       {
         locale: localeEn,
@@ -49,8 +52,8 @@ export class DatepickerComponent implements OnInit {
         minDate: this.minDate,
         onSelect: (e) => {
           this.value = e.date as Date;
-
           this.valueChange.emit(this.value);
+          this.cdr.markForCheck();
         },
       }
     );

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthStore } from 'src/app/store/auth.store';
 
@@ -9,7 +9,8 @@ import { AuthStore } from 'src/app/store/auth.store';
     RouterModule
   ],
   templateUrl: './app-container.component.html',
-  styleUrl: './app-container.component.scss'
+  styleUrl: './app-container.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppContainerComponent {
 

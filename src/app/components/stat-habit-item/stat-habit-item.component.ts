@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { HabitStat } from '@webapi/models';
 
 @Component({
@@ -6,7 +6,8 @@ import { HabitStat } from '@webapi/models';
   standalone: true,
   imports: [],
   templateUrl: './stat-habit-item.component.html',
-  styleUrl: './stat-habit-item.component.scss'
+  styleUrl: './stat-habit-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatHabitItemComponent {
 

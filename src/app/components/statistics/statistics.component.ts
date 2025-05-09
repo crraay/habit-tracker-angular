@@ -1,8 +1,8 @@
 import { NgForOf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HabitStat } from '@webapi/models';
 import { HabitStatisticsService } from '@webapi/services';
-import { format, startOfMonth } from 'date-fns';
+import { format, startOfMonth, endOfMonth, add } from 'date-fns';
 import { StatHabitItemComponent } from '../stat-habit-item/stat-habit-item.component';
 import { DatepickerComponent } from '../datepicker/datepicker.component';
 
@@ -15,7 +15,8 @@ import { DatepickerComponent } from '../datepicker/datepicker.component';
     StatHabitItemComponent
   ],
   templateUrl: './statistics.component.html',
-  styleUrl: './statistics.component.scss'
+  styleUrl: './statistics.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsComponent implements OnInit {
 
@@ -28,7 +29,8 @@ export class StatisticsComponent implements OnInit {
   data: HabitStat[];
 
   constructor(
-    private habitStatisticsService: HabitStatisticsService
+    private habitStatisticsService: HabitStatisticsService,
+    private cdr: ChangeDetectorRef
   ) {
     this.startDate = startOfMonth(this.currentDate);
     this.endDate = this.currentDate;
@@ -46,6 +48,13 @@ export class StatisticsComponent implements OnInit {
       .getAggregatedData({ startDate: formattedStartDate, endDate: formattedEndDate })
       .subscribe(response => {
         this.data = response;
+        this.cdr.markForCheck();
       });
+  }
+
+  onPeriodChange(e: any) {
+    this.startDate = e.startDate;
+    this.endDate = e.endDate;
+    this.refresh();
   }
 }

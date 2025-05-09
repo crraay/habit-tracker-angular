@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HabitResponse } from '@webapi/models';
 
@@ -11,7 +11,8 @@ import { HabitResponse } from '@webapi/models';
     ReactiveFormsModule
   ],
   templateUrl: './edit-habit-item.component.html',
-  styleUrls: ['./edit-habit-item.component.scss']
+  styleUrls: ['./edit-habit-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditHabitItemComponent implements OnInit {
   @Output()
@@ -35,7 +36,8 @@ export class EditHabitItemComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {  }
 
   ngOnInit(): void {
@@ -53,6 +55,7 @@ export class EditHabitItemComponent implements OnInit {
 
     this.isEditMode = false;
     this.onSave.emit(this.form.value);
+    this.cdr.markForCheck();
   }
 
   deleteItem() {
@@ -62,10 +65,12 @@ export class EditHabitItemComponent implements OnInit {
   enterEdit() {
     this.isEditMode = true;
     this.onEditEnter.emit();
+    this.cdr.markForCheck();
   }
 
   cancelEdit() {
     this.isEditMode = false;
     this.onEditCancel.emit();
+    this.cdr.markForCheck();
   }
 }
