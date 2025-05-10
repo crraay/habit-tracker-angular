@@ -1,24 +1,30 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+// TODO move to a shared component
 .separator {
     display: flex;
     align-items: center;
     text-align: center;
     margin: 20px 0;
-  
+
     &::before,
     &::after {
       content: '';
       flex: 1;
       border-bottom: 1px solid #000;
     }
-  
+
     &::before {
       margin-right: .25em;
     }
-  
+
     &::after {
       margin-left: .25em;
     }
-  
+
     span {
       padding: 0 10px;
       font-weight: bold;

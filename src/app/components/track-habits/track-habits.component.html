@@ -1,62 +1,75 @@
 <div class="container-fluid px-3 px-md-4 py-3 py-md-4">
-	<div class="d-flex justify-content-between align-items-center mb-4">
-		<h4 class="m-0">{{ selectedDate | date: 'EEEE, MMMM d' }}</h4>
+	<ng-container *ngIf="data && data.length">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h4 class="m-0">{{ selectedDate | date: 'EEEE, MMMM d' }}</h4>
 
-		<ht-datepicker
-			#datepicker
-			[(value)]="selectedDate"
-			(valueChange)="refresh()"
-			[maxDate]="currentDate"
-			[isInputHidden]="true"
-			[isMobile]="true"
-		></ht-datepicker>
+			<ht-datepicker
+				#datepicker
+				[(value)]="selectedDate"
+				(valueChange)="refresh()"
+				[maxDate]="currentDate"
+				[isInputHidden]="true"
+				[isMobile]="true"
+			></ht-datepicker>
 
-		<i (click)="openDatepicker()" class="fs-2 fa-regular fa-calendar"></i>
-	</div>
-
-	<ht-separator
-		text="TODO"
-		class="mb-4"
-	></ht-separator>
-
-	<div
-		[@fadeHeightIn]
-		*ngIf="!applyFilterByStatus(false)?.length"
-		class="d-flex justify-content-center py-4 text-muted">
-		Nothing left to do
-		<br>
-		Good job! 🎉🎉🎉
-	</div>
-
-	<ng-container *ngFor="let habit of applyFilterByStatus(false); trackBy: trackByHabitId">
-		<!-- additional wrapper is needed to correctly animate gap -->
-		<div [@fadeHeightIn] [@fadeHeightOut]>
-			<div class="pb-2 pb-lg-3">
-				<ht-track-habit-item
-				[data]="habit"
-				(statusChange)="handleStatusChange($event)"
-				></ht-track-habit-item>
-			</div>
+			<i (click)="openDatepicker()" class="fs-2 fa-regular fa-calendar"></i>
 		</div>
+
+		<ht-separator
+			text="TODO"
+			class="mb-4"
+		></ht-separator>
+
+		<div
+			[@fadeHeightIn]
+			*ngIf="!applyFilterByStatus(false)?.length"
+			class="d-flex justify-content-center py-1 py-md-4">
+			Nothing left to do
+			<br>
+			Good job! 🎉🎉🎉
+		</div>
+
+		<ng-container *ngFor="let habit of applyFilterByStatus(false); trackBy: trackByHabitId">
+			<!-- additional wrapper is needed to correctly animate gap -->
+			<div [@fadeHeightIn] [@fadeHeightOut]>
+				<div class="pb-2 pb-lg-3">
+					<ht-track-habit-item
+					[data]="habit"
+					(statusChange)="handleStatusChange($event)"
+					></ht-track-habit-item>
+				</div>
+			</div>
+		</ng-container>
+
+		<ht-separator
+			*ngIf="applyFilterByStatus(true)?.length"
+			[@fadeHeightIn]
+			[@fadeHeightOut]
+			text="DONE"
+			class="my-4"
+		></ht-separator>
+
+		<ng-container *ngFor="let habit of applyFilterByStatus(true); trackBy: trackByHabitId">
+			<!-- additional wrapper is needed to correctly animate gap -->
+			<div [@fadeHeightIn] [@fadeHeightOut]>
+				<div class="pb-2 pb-lg-3">
+					<ht-track-habit-item
+					[data]="habit"
+					(statusChange)="handleStatusChange($event)"
+					></ht-track-habit-item>
+				</div>
+			</div>
+		</ng-container>
 	</ng-container>
 
-	<ht-separator
-		*ngIf="applyFilterByStatus(true)?.length"
-		[@fadeHeightIn]
-		[@fadeHeightOut]
-		text="DONE"
-		class="my-4"
-	></ht-separator>
-
-	<ng-container *ngFor="let habit of applyFilterByStatus(true); trackBy: trackByHabitId">
-		<!-- additional wrapper is needed to correctly animate gap -->
-		<div [@fadeHeightIn] [@fadeHeightOut]>
-			<div class="pb-2 pb-lg-3">
-				<ht-track-habit-item
-				[data]="habit"
-				(statusChange)="handleStatusChange($event)"
-				></ht-track-habit-item>
-			</div>
+	<div *ngIf="data && data.length === 0" class="empty-state-container">
+		<div class="text-center mb-4" style="max-width: 70%;">
+			<h4 class="mb-3">No habits to track</h4>
+			<p class="mb-4">Go to Edit Habits to create your first habit 🚀</p>
+			<a routerLink="/edit" class="btn btn-primary">
+				<i class="fa-solid fa-edit me-2"></i>
+				Edit Habits
+			</a>
 		</div>
-	</ng-container>
+	</div>
 </div>

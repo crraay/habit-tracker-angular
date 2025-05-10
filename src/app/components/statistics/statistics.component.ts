@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HabitStat } from '@webapi/models';
 import { HabitStatisticsService } from '@webapi/services';
@@ -10,6 +10,7 @@ import { DatepickerComponent } from '../datepicker/datepicker.component';
   selector: 'ht-statistics',
   standalone: true,
   imports: [
+    NgIf,
     NgForOf,
     DatepickerComponent,
     StatHabitItemComponent

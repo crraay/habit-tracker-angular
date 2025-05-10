@@ -1,31 +1,48 @@
 <div class="container-fluid px-3 px-md-4 py-3 py-md-4">
-  <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
+  <ng-container *ngIf="(data && data.length) || isCreatingNew">
+    <ng-container *ngFor="let habit of data; trackBy: trackByHabitId">
       <!-- additional wrapper is needed to correctly animate gap -->
       <div [@fadeHeightOut]>
-          <div class="pb-2 pb-lg-3">
-              <ht-edit-habit-item
-                  [data]="habit"
-                  (onSave)="handleUpdate($event)"
-                  (onDelete)="handleDelete($event)"
-              ></ht-edit-habit-item>
-          </div>
+        <div class="pb-2 pb-lg-3">
+          <ht-edit-habit-item
+            [data]="habit"
+            (onSave)="handleUpdate($event)"
+            (onDelete)="handleDelete($event)"
+          ></ht-edit-habit-item>
+        </div>
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="isCreatingNew">
+      <ht-edit-habit-item
+        [@fadeIn]
+        class="mb-2 mb-lg-3"
+        [isEditMode]="true"
+        (onEditCancel)="cancelCreateMode()"
+        (onSave)="handleCreate($event)"
+      ></ht-edit-habit-item>
+    </ng-container>
   </ng-container>
 
-  <ng-container *ngIf="isCreatingNew">
-      <ht-edit-habit-item
-          [@fadeIn]
-          class="mb-2 mb-lg-3"
-          [isEditMode]="true"
-          (onEditCancel)="cancelCreateMode()"
-          (onSave)="handleCreate($event)"
-      ></ht-edit-habit-item>
-  </ng-container>
+  <div *ngIf="(data && data.length === 0) && !isCreatingNew" class="empty-state-container">
+    <div class="text-center mb-4" style="max-width: 70%;">
+      <h4 class="mb-3">No habits created yet</h4>
+      <p class="mb-4">Click to create your first habit 🎯</p>
+      <button
+        class="add-btn btn btn-primary"
+        (click)="enterCreateMode()"
+      >
+        <i class="fa-solid fa-plus"></i>
+        Create Habit
+      </button>
+    </div>
+  </div>
 </div>
 
 <button
-    class="add-btn btn btn-primary btn-lg position-fixed bottom-0 end-0 m-3"
-    (click)="enterCreateMode()"
+  *ngIf="data?.length && !isCreatingNew"
+  class="add-btn btn btn-primary btn-lg position-fixed bottom-0 end-0 m-3"
+  (click)="enterCreateMode()"
 >
-    <i class="fa-solid fa-plus"></i>
+  <i class="fa-solid fa-plus"></i>
 </button>

@@ -9,6 +9,7 @@ import { DatepickerComponent } from "../datepicker/datepicker.component";
 import { format } from 'date-fns';
 import { SeparatorComponent } from "../separator/separator.component";
 import { fadeHeightInTrigger, fadeHeightOutTrigger } from 'src/app/animations/triggers';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ht-track-habits',
@@ -18,6 +19,7 @@ import { fadeHeightInTrigger, fadeHeightOutTrigger } from 'src/app/animations/tr
     NgForOf,
     DatePipe,
     FormsModule,
+    RouterLink,
     TrackHabitItemComponent,
     DatepickerComponent,
     SeparatorComponent

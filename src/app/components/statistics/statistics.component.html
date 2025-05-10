@@ -21,9 +21,18 @@
     </div>
   </div>
 
-  <ng-container *ngFor="let habit of data">
-    <div class="pb-2 pb-lg-3">
-      <ht-stat-habit-item [data]="habit"/>
-    </div>
+  <ng-container *ngIf="data && data.length">
+    <ng-container *ngFor="let habit of data">
+      <div class="pb-2 pb-lg-3">
+        <ht-stat-habit-item [data]="habit"/>
+      </div>
+    </ng-container>
   </ng-container>
+
+  <div *ngIf="data && data.length === 0" class="empty-state-container">
+    <div class="text-center mb-4" style="max-width: 70%;">
+      <h4 class="mb-3">No data available</h4>
+      <p class="mb-4">No habits were tracked in the selected period 📅</p>
+    </div>
+  </div>
 </div>
