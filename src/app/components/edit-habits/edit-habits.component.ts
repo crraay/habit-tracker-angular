@@ -4,6 +4,8 @@ import { HabitResponse } from '@webapi/models';
 import { HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { fadeHeightOutTrigger, fadeInTrigger, fadeOutTrigger } from 'src/app/animations/triggers';
+import { DialogService } from 'src/app/services/dialog.service';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'ht-edit-habits',
@@ -28,7 +30,8 @@ export class EditHabitsComponent implements OnInit {
 
   constructor(
     private habitMgmtService: HabitMgmtService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -69,8 +72,13 @@ export class EditHabitsComponent implements OnInit {
   }
 
   handleDelete(habit: HabitResponse): void {
-    this.habitMgmtService.deleteHabit({ id: habit.id })
-      .subscribe(response => {
+    this.dialogService
+      .confirm('Are you sure you want to delete this habit?', 'Delete Habit')
+      .afterClosed$
+      .pipe(
+        filter(result => result === true),
+        switchMap(() => this.habitMgmtService.deleteHabit({ id: habit.id })),
+      ).subscribe(response => {
         this.refresh();
       });
   }
