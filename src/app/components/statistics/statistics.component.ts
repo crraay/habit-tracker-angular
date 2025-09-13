@@ -1,6 +1,6 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HabitStat } from '@webapi/models';
+import { HabitStatRequest } from '@webapi/models';
 import { HabitStatisticsService } from '@webapi/services';
 import { format, startOfMonth, endOfMonth, add } from 'date-fns';
 import { StatHabitItemComponent } from '../stat-habit-item/stat-habit-item.component';
@@ -27,7 +27,7 @@ export class StatisticsComponent implements OnInit {
 
   endDate: Date;
 
-  data: HabitStat[];
+  data: HabitStatRequest[];
 
   constructor(
     private habitStatisticsService: HabitStatisticsService,

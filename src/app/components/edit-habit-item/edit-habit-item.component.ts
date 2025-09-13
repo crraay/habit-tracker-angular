@@ -2,13 +2,15 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HabitResponse } from '@webapi/models';
+import { CounterComponent } from "../counter/counter.component";
 
 @Component({
   selector: 'ht-edit-habit-item',
   standalone: true,
   imports: [
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CounterComponent
   ],
   templateUrl: './edit-habit-item.component.html',
   styleUrls: ['./edit-habit-item.component.scss'],
