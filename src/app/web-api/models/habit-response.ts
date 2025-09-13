@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HabitAggregateResponse } from '../models/habit-aggregate-response';
 export interface HabitResponse {
-  id?: number;
-  name?: string;
+  aggregate?: HabitAggregateResponse;
+  id: number;
+  name: string;
 }
