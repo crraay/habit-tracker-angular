@@ -5,6 +5,7 @@
         "auth",
         "habit-mgmt",
         "habit-track",
-        "habit-statistics"
+        "habit-statistics",
+        "habit-icons"
     ]
   }

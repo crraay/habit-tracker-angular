@@ -5,5 +5,6 @@ export interface HabitTrackResponse {
   aggregate?: HabitAggregateResponse;
   habitId?: number;
   habitName?: string;
+  iconUrl?: string;
   status?: boolean;
 }

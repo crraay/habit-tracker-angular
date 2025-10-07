@@ -1,0 +1,6 @@
+<select class="form-control" [disabled]="disabled" (change)="selectIcon($event.target.value)">
+  <option [value]="null" [selected]="value == null">No icon</option>
+  <option *ngFor="let icon of icons ?? []" [value]="icon.id" [selected]="value === icon.id">
+    {{ icon.name }}
+  </option>
+</select>

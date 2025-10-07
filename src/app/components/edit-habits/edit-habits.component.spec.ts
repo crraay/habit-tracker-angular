@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { EditHabitsComponent } from './edit-habits.component';
-import { HabitMgmtService } from '@webapi/services';
+import { HabitIconsService, HabitMgmtService } from '@webapi/services';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/services/dialog.service';
 import { HabitResponse } from '@webapi/models';
@@ -10,14 +10,16 @@ import { HabitResponse } from '@webapi/models';
 describe('EditHabitsComponent', () => {
   let component: EditHabitsComponent;
   let fixture: ComponentFixture<EditHabitsComponent>;
-  let mockHabitMgmtService: jasmine.SpyObj<HabitMgmtService>;
   let mockChangeDetectorRef: jasmine.SpyObj<ChangeDetectorRef>;
   let mockDialogService: jasmine.SpyObj<DialogService>;
+  let mockHabitMgmtService: jasmine.SpyObj<HabitMgmtService>;
+  let mockHabitIconsService: jasmine.SpyObj<HabitIconsService>;
 
   beforeEach(async () => {
-    mockHabitMgmtService = jasmine.createSpyObj('HabitMgmtService', ['getHabits', 'createHabit', 'updateHabit', 'deleteHabit']);
     mockChangeDetectorRef = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
     mockDialogService = jasmine.createSpyObj('DialogService', ['confirm']);
+    mockHabitMgmtService = jasmine.createSpyObj('HabitMgmtService', ['getHabits', 'createHabit', 'updateHabit', 'deleteHabit']);
+    mockHabitIconsService = jasmine.createSpyObj('HabitIconsService', ['getAll']);
 
     // Setup default return values
     mockHabitMgmtService.getHabits.and.returnValue(of([]));
@@ -25,12 +27,15 @@ describe('EditHabitsComponent', () => {
     mockHabitMgmtService.updateHabit.and.returnValue(of({ id: 1, name: 'Updated Habit' } as HabitResponse));
     mockHabitMgmtService.deleteHabit.and.returnValue(of(void 0));
 
+    mockHabitIconsService.getAll.and.returnValue(of([]));
+
     await TestBed.configureTestingModule({
       imports: [EditHabitsComponent],
       providers: [
-        { provide: HabitMgmtService, useValue: mockHabitMgmtService },
         { provide: ChangeDetectorRef, useValue: mockChangeDetectorRef },
-        { provide: DialogService, useValue: mockDialogService }
+        { provide: DialogService, useValue: mockDialogService },
+        { provide: HabitMgmtService, useValue: mockHabitMgmtService },
+        { provide: HabitIconsService, useValue: mockHabitIconsService }
       ]
     })
     .compileComponents();

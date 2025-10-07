@@ -1,8 +1,14 @@
 <div class="card shadow-sm h-100">
   <div class="card-body d-flex flex-row justify-content-between align-items-center p-3 p-md-4">
     <ng-container *ngIf="!isEditMode; else editModeTemplate">
-        <div class="flex-grow-1 pe-3">
+      <div class="d-flex align-items-center flex-grow-1 pe-3">
+        <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;" *ngIf="data?.iconUrl">
+          <img [src]="data.iconUrl" [alt]="data.name + ' icon'" class="img-fluid rounded" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+        </div>
+
+        <div class="flex-grow-1">
           <h3 class="card-title lh-unset m-0 fs-5 fs-md-4 text-break">{{ data?.name }}</h3>
+
           <div *ngIf="data?.aggregate" class="d-flex flex-row align-items-center gap-3 mt-2">
             <ht-counter
               [icon]="'fa-solid fa-person-running'"
@@ -24,11 +30,18 @@
             ></ht-counter>
           </div>
         </div>
-        <i class="fs-2 lh-unset fa-solid fa-pen-to-square" (click)="enterEdit()"></i>
+      </div>
+      <i class="fs-2 lh-unset fa-solid fa-pen-to-square" (click)="enterEdit()"></i>
     </ng-container>
+
     <ng-template #editModeTemplate>
         <form [formGroup]="form" class="flex-grow-1 me-4">
-            <input type="text" class="form-control" formControlName="name" required>
+            <div class="d-flex align-items-center gap-3">
+                <div style="width: 80px; min-width: 80px;">
+                    <ht-icon-picker [icons]="icons" formControlName="iconId"></ht-icon-picker>
+                </div>
+                <input type="text" class="form-control flex-grow-1" formControlName="name" required>
+            </div>
         </form>
         <div class="d-flex gap-4">
             <i class="fs-2 lh-unset fa-solid fa-save" (click)="saveChanges()"></i>
