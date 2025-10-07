@@ -5,6 +5,7 @@ import { EditHabitsComponent } from './edit-habits.component';
 import { HabitMgmtService } from '@webapi/services';
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogService } from 'src/app/services/dialog.service';
+import { HabitResponse } from '@webapi/models';
 
 describe('EditHabitsComponent', () => {
   let component: EditHabitsComponent;
@@ -20,8 +21,8 @@ describe('EditHabitsComponent', () => {
 
     // Setup default return values
     mockHabitMgmtService.getHabits.and.returnValue(of([]));
-    mockHabitMgmtService.createHabit.and.returnValue(of({}));
-    mockHabitMgmtService.updateHabit.and.returnValue(of({}));
+    mockHabitMgmtService.createHabit.and.returnValue(of({ id: 1, name: 'Test Habit' } as HabitResponse));
+    mockHabitMgmtService.updateHabit.and.returnValue(of({ id: 1, name: 'Updated Habit' } as HabitResponse));
     mockHabitMgmtService.deleteHabit.and.returnValue(of(void 0));
 
     await TestBed.configureTestingModule({

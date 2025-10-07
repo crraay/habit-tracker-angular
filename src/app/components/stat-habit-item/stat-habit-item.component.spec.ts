@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatHabitItemComponent } from './stat-habit-item.component';
-import { HabitStat } from '@webapi/models';
+import { HabitStatRequest } from '@webapi/models';
 
 describe('StatHabitItemComponent', () => {
   let component: StatHabitItemComponent;
@@ -20,10 +20,9 @@ describe('StatHabitItemComponent', () => {
     component.data = {
       habitId: 1,
       habitName: 'Test Habit',
-      totalDays: 10,
-      trackedDays: 5,
-      percentage: 50
-    } as HabitStat;
+      done: 5,
+      of: 10
+    } as HabitStatRequest;
 
     fixture.detectChanges();
   });

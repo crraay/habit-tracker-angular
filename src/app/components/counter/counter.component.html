@@ -1,0 +1,5 @@
+<span class="d-inline-flex align-items-center">
+  <i class="me-1" [class]="icon" [ngClass]="colorClass" [ngStyle]="colorStyle ? {'color': colorStyle} : null"></i>
+  <span *ngIf="label" class="d-none d-md-inline me-1">{{ label }}:</span>
+  <span class="fw-semibold" [ngClass]="colorClass" [ngStyle]="colorStyle ? {'color': colorStyle} : null">{{ value }}</span>
+</span>

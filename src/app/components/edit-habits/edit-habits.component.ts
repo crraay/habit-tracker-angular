@@ -1,6 +1,6 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HabitResponse } from '@webapi/models';
+import { HabitRequest, HabitResponse } from '@webapi/models';
 import { HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { fadeHeightOutTrigger, fadeInTrigger, fadeOutTrigger } from 'src/app/animations/triggers';
@@ -56,7 +56,7 @@ export class EditHabitsComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
-  handleCreate(habit: HabitResponse): void {
+  handleCreate(habit: HabitRequest): void {
     this.habitMgmtService.createHabit({ body: habit })
       .subscribe(response => {
         this.isCreatingNew = false;

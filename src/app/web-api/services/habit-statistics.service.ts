@@ -11,7 +11,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { getAggregatedData } from '../fn/habit-statistics/get-aggregated-data';
 import { GetAggregatedData$Params } from '../fn/habit-statistics/get-aggregated-data';
-import { HabitStat } from '../models/habit-stat';
+import { HabitStatRequest } from '../models/habit-stat-request';
 
 @Injectable({ providedIn: 'root' })
 export class HabitStatisticsService extends BaseService {
@@ -28,7 +28,7 @@ export class HabitStatisticsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAggregatedData$Response(params: GetAggregatedData$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitStat>>> {
+  getAggregatedData$Response(params: GetAggregatedData$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitStatRequest>>> {
     return getAggregatedData(this.http, this.rootUrl, params, context);
   }
 
@@ -38,9 +38,9 @@ export class HabitStatisticsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAggregatedData(params: GetAggregatedData$Params, context?: HttpContext): Observable<Array<HabitStat>> {
+  getAggregatedData(params: GetAggregatedData$Params, context?: HttpContext): Observable<Array<HabitStatRequest>> {
     return this.getAggregatedData$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<HabitStat>>): Array<HabitStat> => r.body)
+      map((r: StrictHttpResponse<Array<HabitStatRequest>>): Array<HabitStatRequest> => r.body)
     );
   }
 
