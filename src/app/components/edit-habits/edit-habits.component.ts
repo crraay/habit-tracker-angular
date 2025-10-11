@@ -1,7 +1,7 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HabitRequest, HabitResponse } from '@webapi/models';
-import { HabitMgmtService } from '@webapi/services';
+import { HabitIconDto, HabitRequest, HabitResponse } from '@webapi/models';
+import { HabitIconsService, HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { fadeHeightOutTrigger, fadeInTrigger, fadeOutTrigger } from 'src/app/animations/triggers';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -24,18 +24,28 @@ import { filter, switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditHabitsComponent implements OnInit {
-  data: HabitResponse[];
 
   isCreatingNew = false;
 
+  data: HabitResponse[];
+
+  icons: HabitIconDto[];
+
   constructor(
-    private habitMgmtService: HabitMgmtService,
     private cdr: ChangeDetectorRef,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private habitMgmtService: HabitMgmtService,
+    private habitIconsService: HabitIconsService
   ) { }
 
   ngOnInit(): void {
     this.refresh();
+
+    this.habitIconsService.getAll()
+      .subscribe(response => {
+        this.icons = response;
+        this.cdr.markForCheck();
+      });
   }
 
   refresh(): void {

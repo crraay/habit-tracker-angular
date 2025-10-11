@@ -8,6 +8,7 @@ import { HabitMgmtService } from './services/habit-mgmt.service';
 import { HabitTrackService } from './services/habit-track.service';
 import { AuthService } from './services/auth.service';
 import { HabitStatisticsService } from './services/habit-statistics.service';
+import { HabitIconsService } from './services/habit-icons.service';
 
 /**
  * Module that provides all services and configuration.
@@ -21,6 +22,7 @@ import { HabitStatisticsService } from './services/habit-statistics.service';
     HabitTrackService,
     AuthService,
     HabitStatisticsService,
+    HabitIconsService,
     ApiConfiguration
   ],
 })

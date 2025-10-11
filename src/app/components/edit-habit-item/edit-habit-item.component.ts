@@ -1,8 +1,9 @@
-import { NgIf } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HabitResponse } from '@webapi/models';
+import { HabitIconDto, HabitResponse } from '@webapi/models';
 import { CounterComponent } from "../counter/counter.component";
+import { IconPickerComponent } from '../icon-picker/icon-picker.component';
 
 @Component({
   selector: 'ht-edit-habit-item',
@@ -10,7 +11,8 @@ import { CounterComponent } from "../counter/counter.component";
   imports: [
     NgIf,
     ReactiveFormsModule,
-    CounterComponent
+    CounterComponent,
+    IconPickerComponent
   ],
   templateUrl: './edit-habit-item.component.html',
   styleUrls: ['./edit-habit-item.component.scss'],
@@ -35,6 +37,9 @@ export class EditHabitItemComponent implements OnInit {
   @Input()
   isEditMode = false;
 
+  @Input()
+  icons: HabitIconDto[];
+
   form: FormGroup;
 
   constructor(
@@ -43,8 +48,10 @@ export class EditHabitItemComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
+    // debugger;
     this.form = this.fb.group({
       id: [this.data?.id],
+      iconId: [this.data?.iconId],
       // TODO add length validation
       name: [this.data?.name, Validators.required]
     });

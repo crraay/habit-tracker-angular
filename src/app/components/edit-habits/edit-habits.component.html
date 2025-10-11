@@ -6,6 +6,7 @@
         <div class="pb-2 pb-lg-3">
           <ht-edit-habit-item
             [data]="habit"
+            [icons]="icons"
             (onSave)="handleUpdate($event)"
             (onDelete)="handleDelete($event)"
           ></ht-edit-habit-item>
@@ -17,6 +18,7 @@
       <ht-edit-habit-item
         [@fadeIn]
         class="mb-2 mb-lg-3"
+        [icons]="icons"
         [isEditMode]="true"
         (onEditCancel)="cancelCreateMode()"
         (onSave)="handleCreate($event)"
