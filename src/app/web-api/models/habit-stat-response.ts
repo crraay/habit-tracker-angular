@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { HabitAggregateResponse } from '../models/habit-aggregate-response';
-export interface HabitStatRequest {
+export interface HabitStatResponse {
   aggregate?: HabitAggregateResponse;
   done?: number;
   habitId?: number;

@@ -1,7 +1,7 @@
 import { JsonPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HabitIconDto, HabitResponse } from '@webapi/models';
+import { HabitIconDto, HabitDto } from '@webapi/models';
 import { CounterComponent } from "../counter/counter.component";
 import { IconPickerComponent } from '../icon-picker/icon-picker.component';
 
@@ -20,10 +20,10 @@ import { IconPickerComponent } from '../icon-picker/icon-picker.component';
 })
 export class EditHabitItemComponent implements OnInit {
   @Output()
-  onSave = new EventEmitter<HabitResponse>();
+  onSave = new EventEmitter<HabitDto>();
 
   @Output()
-  onDelete = new EventEmitter<HabitResponse>();
+  onDelete = new EventEmitter<HabitDto>();
 
   @Output()
   onEditEnter = new EventEmitter<void>();
@@ -32,7 +32,7 @@ export class EditHabitItemComponent implements OnInit {
   onEditCancel = new EventEmitter<void>();
 
   @Input()
-  data: HabitResponse;
+  data: HabitDto;
 
   @Input()
   isEditMode = false;

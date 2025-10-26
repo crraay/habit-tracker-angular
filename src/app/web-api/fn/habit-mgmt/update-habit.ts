@@ -6,15 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { HabitRequest } from '../../models/habit-request';
-import { HabitResponse } from '../../models/habit-response';
+import { HabitDto } from '../../models/habit-dto';
 
 export interface UpdateHabit$Params {
   id: number;
-      body: HabitRequest
+      body: HabitDto
 }
 
-export function updateHabit(http: HttpClient, rootUrl: string, params: UpdateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
+export function updateHabit(http: HttpClient, rootUrl: string, params: UpdateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitDto>> {
   const rb = new RequestBuilder(rootUrl, updateHabit.PATH, 'put');
   if (params) {
     rb.path('id', params.id, {});
@@ -26,7 +25,7 @@ export function updateHabit(http: HttpClient, rootUrl: string, params: UpdateHab
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<HabitResponse>;
+      return r as StrictHttpResponse<HabitDto>;
     })
   );
 }

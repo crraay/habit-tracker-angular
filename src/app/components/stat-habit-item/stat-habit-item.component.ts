@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { HabitStatRequest } from '@webapi/models';
+import { HabitStatResponse } from '@webapi/models';
 import { CounterComponent } from "../counter/counter.component";
 
 interface HabitAggregateLike {
@@ -20,7 +20,7 @@ interface HabitAggregateLike {
 export class StatHabitItemComponent {
 
   @Input()
-  data: HabitStatRequest;
+  data: HabitStatResponse;
 
   get aggregate(): HabitAggregateLike | null {
     return (this.data as any)?.aggregate ?? null;

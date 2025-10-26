@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import { HabitAggregateResponse } from '../models/habit-aggregate-response';
-export interface HabitResponse {
+export interface HabitDto {
   aggregate?: HabitAggregateResponse;
   iconId?: number;
   iconUrl?: string;
-  id: number;
+  id?: number;
   name: string;
 }
