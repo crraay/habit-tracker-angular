@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { HabitStatRequest } from '../../models/habit-stat-request';
+import { HabitStatResponse } from '../../models/habit-stat-response';
 
 export interface GetAggregatedData$Params {
   startDate: string;
   endDate: string;
 }
 
-export function getAggregatedData(http: HttpClient, rootUrl: string, params: GetAggregatedData$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitStatRequest>>> {
+export function getAggregatedData(http: HttpClient, rootUrl: string, params: GetAggregatedData$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitStatResponse>>> {
   const rb = new RequestBuilder(rootUrl, getAggregatedData.PATH, 'get');
   if (params) {
     rb.path('startDate', params.startDate, {});
@@ -25,7 +25,7 @@ export function getAggregatedData(http: HttpClient, rootUrl: string, params: Get
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<HabitStatRequest>>;
+      return r as StrictHttpResponse<Array<HabitStatResponse>>;
     })
   );
 }
