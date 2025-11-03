@@ -1,6 +1,6 @@
 import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { HabitIconDto, HabitRequest, HabitResponse } from '@webapi/models';
+import { HabitIconDto, HabitDto } from '@webapi/models';
 import { HabitIconsService, HabitMgmtService } from '@webapi/services';
 import { EditHabitItemComponent } from "../edit-habit-item/edit-habit-item.component";
 import { fadeHeightOutTrigger, fadeInTrigger, fadeOutTrigger } from 'src/app/animations/triggers';
@@ -27,7 +27,7 @@ export class EditHabitsComponent implements OnInit {
 
   isCreatingNew = false;
 
-  data: HabitResponse[];
+  data: HabitDto[];
 
   icons: HabitIconDto[];
 
@@ -66,7 +66,7 @@ export class EditHabitsComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
-  handleCreate(habit: HabitRequest): void {
+  handleCreate(habit: HabitDto): void {
     this.habitMgmtService.createHabit({ body: habit })
       .subscribe(response => {
         this.isCreatingNew = false;
@@ -74,14 +74,14 @@ export class EditHabitsComponent implements OnInit {
       });
   }
 
-  handleUpdate(habit: HabitResponse): void {
+  handleUpdate(habit: HabitDto): void {
     this.habitMgmtService.updateHabit({ id: habit.id, body: habit })
       .subscribe(response => {
         this.refresh();
       });
   }
 
-  handleDelete(habit: HabitResponse): void {
+  handleDelete(habit: HabitDto): void {
     this.dialogService
       .confirm('Are you sure you want to delete this habit?', 'Delete Habit')
       .afterClosed$
@@ -93,7 +93,7 @@ export class EditHabitsComponent implements OnInit {
       });
   }
 
-  trackByHabitId(index: number, habit: HabitResponse): number {
+  trackByHabitId(index: number, habit: HabitDto): number {
     return habit.id;
   }
 }

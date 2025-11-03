@@ -17,7 +17,7 @@ import { getHabit } from '../fn/habit-mgmt/get-habit';
 import { GetHabit$Params } from '../fn/habit-mgmt/get-habit';
 import { getHabits } from '../fn/habit-mgmt/get-habits';
 import { GetHabits$Params } from '../fn/habit-mgmt/get-habits';
-import { HabitResponse } from '../models/habit-response';
+import { HabitDto } from '../models/habit-dto';
 import { updateHabit } from '../fn/habit-mgmt/update-habit';
 import { UpdateHabit$Params } from '../fn/habit-mgmt/update-habit';
 
@@ -36,7 +36,7 @@ export class HabitMgmtService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getHabit$Response(params: GetHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
+  getHabit$Response(params: GetHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitDto>> {
     return getHabit(this.http, this.rootUrl, params, context);
   }
 
@@ -46,9 +46,9 @@ export class HabitMgmtService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getHabit(params: GetHabit$Params, context?: HttpContext): Observable<HabitResponse> {
+  getHabit(params: GetHabit$Params, context?: HttpContext): Observable<HabitDto> {
     return this.getHabit$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HabitResponse>): HabitResponse => r.body)
+      map((r: StrictHttpResponse<HabitDto>): HabitDto => r.body)
     );
   }
 
@@ -61,7 +61,7 @@ export class HabitMgmtService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updateHabit$Response(params: UpdateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
+  updateHabit$Response(params: UpdateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitDto>> {
     return updateHabit(this.http, this.rootUrl, params, context);
   }
 
@@ -71,9 +71,9 @@ export class HabitMgmtService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updateHabit(params: UpdateHabit$Params, context?: HttpContext): Observable<HabitResponse> {
+  updateHabit(params: UpdateHabit$Params, context?: HttpContext): Observable<HabitDto> {
     return this.updateHabit$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HabitResponse>): HabitResponse => r.body)
+      map((r: StrictHttpResponse<HabitDto>): HabitDto => r.body)
     );
   }
 
@@ -111,7 +111,7 @@ export class HabitMgmtService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getHabits$Response(params?: GetHabits$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitResponse>>> {
+  getHabits$Response(params?: GetHabits$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HabitDto>>> {
     return getHabits(this.http, this.rootUrl, params, context);
   }
 
@@ -121,9 +121,9 @@ export class HabitMgmtService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getHabits(params?: GetHabits$Params, context?: HttpContext): Observable<Array<HabitResponse>> {
+  getHabits(params?: GetHabits$Params, context?: HttpContext): Observable<Array<HabitDto>> {
     return this.getHabits$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<HabitResponse>>): Array<HabitResponse> => r.body)
+      map((r: StrictHttpResponse<Array<HabitDto>>): Array<HabitDto> => r.body)
     );
   }
 
@@ -136,7 +136,7 @@ export class HabitMgmtService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createHabit$Response(params: CreateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitResponse>> {
+  createHabit$Response(params: CreateHabit$Params, context?: HttpContext): Observable<StrictHttpResponse<HabitDto>> {
     return createHabit(this.http, this.rootUrl, params, context);
   }
 
@@ -146,9 +146,9 @@ export class HabitMgmtService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createHabit(params: CreateHabit$Params, context?: HttpContext): Observable<HabitResponse> {
+  createHabit(params: CreateHabit$Params, context?: HttpContext): Observable<HabitDto> {
     return this.createHabit$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HabitResponse>): HabitResponse => r.body)
+      map((r: StrictHttpResponse<HabitDto>): HabitDto => r.body)
     );
   }
 
