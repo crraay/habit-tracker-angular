@@ -24,6 +24,7 @@
     "@ngneat/dialog": "^5.1.2",
     "@ngneat/elf": "^2.5.1",
     "@ngneat/elf-persist-state": "^1.2.1",
+    "@kostya/ngx-core": "file:../ngx-toolkit/dist/core",
     "air-datepicker": "^3.5.3",
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
