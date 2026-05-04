@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.gitignore
+.idea
+.angular
+*.iml
+.DS_Store
+coverage
+README.md
+.dockerignore
+Dockerfile
