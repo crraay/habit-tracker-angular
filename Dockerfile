@@ -1,5 +1,9 @@
 # Build stage
 FROM node:20-bookworm AS build
+# Exit 137 during `ng build` on small VPS = Linux OOM killer. Cap JS heap so Node does not grab all RAM.
+# On 1GB droplets, add swap (see backend DOCKER.md) and/or pass --build-arg NODE_MEMORY_LIMIT=768
+ARG NODE_MEMORY_LIMIT=1536
+ENV NODE_OPTIONS=--max-old-space-size=${NODE_MEMORY_LIMIT}
 WORKDIR /app
 
 COPY package.json package-lock.json ./
